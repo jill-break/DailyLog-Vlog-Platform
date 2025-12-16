@@ -1,10 +1,21 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware 
 from pydantic import BaseModel
 from typing import List, Optional
 from datetime import datetime
 import uuid
 
 app = FastAPI()
+
+# Allow the Frontend to talk to the Backend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"], 
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 # --- Data Models (Pydantic) ---
 class Post(BaseModel):
