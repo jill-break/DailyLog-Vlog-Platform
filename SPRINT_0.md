@@ -38,7 +38,7 @@ For any User Story to be considered "Done" in this project, it must meet the fol
 ## 4. Sprint 1 Plan
 *Goal: Deliver the "Walking Skeleton" (MVP) and establish the CI/CD pipeline.*
 
-We have selected the following stories for Sprint 1 Execution:
+I have selected the following stories for Sprint 1 Execution:
 
 1.  **US-1 (Create Post):** Essential for inputting data into the system.
 2.  **US-2 (View List):** Essential for displaying data to the user.
