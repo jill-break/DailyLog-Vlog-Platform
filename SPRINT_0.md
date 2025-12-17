@@ -27,11 +27,11 @@ The **DailyLog** is a lightweight vlogging platform that allows the creator to s
 ## 3. Definition of Done (DoD)
 For any User Story to be considered "Done" in this project, it must meet the following standards:
 
-- [ ] **Code Complete:** Feature is implemented in Python (FastAPI) and Next.js.
-- [ ] **Version Controlled:** All code is committed and pushed to the `main` branch on GitHub.
-- [ ] **Tested:** At least one passing Unit Test exists for the backend logic.
-- [ ] **Clean:** Code follows standard linting rules (no obvious errors or debug print statements).
-- [ ] **Buildable:** The application runs locally (e.g., via Docker) without crashing.
+-  **Code Complete:** Feature is implemented in Python (FastAPI) and Next.js.
+-  **Version Controlled:** All code is committed and pushed to the `main` branch on GitHub.
+-  **Tested:** At least one passing Unit Test exists for the backend logic.
+-  **Clean:** Code follows standard linting rules (no obvious errors or debug print statements).
+-  **Buildable:** The application runs locally (via Docker) without crashing.
 
 ---
 

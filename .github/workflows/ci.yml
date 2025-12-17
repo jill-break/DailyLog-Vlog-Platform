@@ -32,7 +32,7 @@ jobs:
         cd backend
         pytest
 
-  # Job 2: Check Frontend Build (Ensures no syntax errors)
+  # Job 2: Check Frontend Build
   frontend-build:
     runs-on: ubuntu-latest
     

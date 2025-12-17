@@ -15,7 +15,7 @@
 - [x] **Feature (US-1):** Implement `POST /posts` endpoint
 - [x] **Feature (US-2):** Implement `GET /posts` endpoint
 - [x] **Testing:** Write Unit Tests (`test_main.py`)
-- [ ] **Refactor:** Switch from In-Memory List to PostgreSQL (Planned for Sprint 2)
+- [X] **Refactor:** Switch from In-Memory List to PostgreSQL (Planned for Sprint 2)
 
 ### **Frontend (Next.js)**
 - [x] Initialize Next.js Project
@@ -27,7 +27,7 @@
 ### **DevOps & Infrastructure**
 - [x] Initialize Git Repository & Push to Main
 - [X] **CI Pipeline:** Create GitHub Actions workflow (`ci.yml`) to run tests automatically
-- [ ] **Containerization:** Add `Dockerfile` for Backend
+- [X] **Containerization:** Add `Dockerfile` for Backend
 
 ---
 
@@ -50,14 +50,14 @@
 I successfully delivered the "Walking Skeleton" of the application, fulfilling the following User Stories:
 * **US-1 (Create Post):** Users can submit a title, content, and video URL. The backend assigns a unique ID and timestamp.
 * **US-2 (View List):** The Homepage fetches the list of posts from the Python API and displays them in reverse chronological order.
-* **US-3 (View Details):** Basic routing is established.
+* **US-3 (View Details):** Routing is established.
 
 ### **Evidence of Work**
 
 #### **1. The Working Application**
 *The Homepage showing the "Create Post" form and the list of Vlogs coming from the Backend.*
 ![Homepage Screenshot](./screenshots/sprint1_homepage.png)
-*(Note: I have verified that submitting the form updates the list immediately without page reload.)*
+
 
 #### **2. API Documentation (Swagger UI)**
 *The FastAPI automatic documentation showing the successful `/posts` endpoints.*
@@ -78,7 +78,7 @@ I successfully delivered the "Walking Skeleton" of the application, fulfilling t
 * **Automated Testing:** Writing the unit test for `create_post` early meant I could verify my API changes without constantly clicking through the frontend.
 
 ### **What didn't go well? (Challenges)**
-* **CI/CD Configuration:** My first 3 CI pipeline run failed because of a Python version and nextjs version mismatch. My local environment was using Python 3.10+, but the GitHub Action was set to 3.9, causing a dependency conflict with the `click` library, the Next.js version was set to 18 while my local machine was set to 20.
+* **CI/CD Configuration:** My first 3 CI pipelines run failed because of a Python version and nextjs version mismatch. My local environment was using Python 3.10+, but the GitHub Action was set to 3.9, causing a dependency conflict with the `click` library, the Next.js version was set to 18 while my local machine was set to 20+.
 * **CORS Issues:** I initially forgot to configure CORS on the backend, which caused the Frontend to fail when fetching data. I had to research and add the `CORSMiddleware`.
 
 ### **Improvements for Sprint 2 (Action Plan)**
