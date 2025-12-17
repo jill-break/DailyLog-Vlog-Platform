@@ -9,7 +9,7 @@ interface Post {
   content: string;
   video_url: string;
   created_at: string;
-  likes: int;
+  likes: number;
 }
 
 export default function Home() {
