@@ -59,5 +59,5 @@ I delivered the final two user stories and improved the system architecture.
 * **Environment Parity is Critical:** The biggest challenge was the Python and Next.js version mismatch in the CI pipeline (Local was 3.10 and 20, CI was 3.9 and 18). I learned that defining exact versions in `ci.yml` and `Dockerfile` is essential to prevent "*it works on my machine" errors*.
 * **Iterative Delivery Works:** Breaking the project into "Skeleton first" (Sprint 1) and "Features second" (Sprint 2) saved me from getting overwhelmed. I always had a working application to show, even if features were missing.
 
-**3. Future Steps (If project continued)**
+**3. Future Steps**
 * Deploy the Docker containers to a cloud provider like AWS EC2.
