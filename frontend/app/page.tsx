@@ -128,7 +128,17 @@ export default function Home() {
   return (
     <main className="min-h-screen p-8 bg-gray-50 text-gray-800">
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8 text-center text-blue-600">DailyLog Vlog</h1>
+        {/* <h1 className="text-3xl font-bold mb-8 text-center text-blue-600">DailyLog Vlog</h1> */}
+        {/* Header with Logo */}
+        <div className="flex items-center justify-center mb-8 space-x-4"> {/* Increased space-x slightly */}
+          <img
+            src="/logo.png"
+            alt="DailyLog Logo"
+            className="h-50 w-auto"  
+            // {/* <-- Changed from h-12 to h-20 */}
+          />
+          
+        </div>
 
         {/* Create Post Form */}
         <div className="bg-white p-6 rounded-lg shadow-md mb-8">
