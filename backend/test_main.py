@@ -29,6 +29,7 @@ Base.metadata.create_all(bind=engine)
 
 # --- 2. Override the Dependency ---
 def override_get_db():
+    """Provide a database session for testing purposes."""
     try:
         db = TestingSessionLocal()
         yield db

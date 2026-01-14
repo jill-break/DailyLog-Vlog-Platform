@@ -6,7 +6,7 @@ from typing import List, Optional
 from datetime import datetime
 import uuid
 
-# --- SQLAlchemy Imports (Updated) ---
+# --- SQLAlchemy Imports ---
 from sqlalchemy import create_engine, Column, String, Integer, DateTime, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session, relationship
@@ -96,14 +96,17 @@ app.add_middleware(
 
 @app.get("/health")
 def health_check():
+    """Health check endpoint"""
     return {"status": "healthy", "database": "connected"}
 
 @app.get("/posts", response_model=List[PostResponse])
 def get_posts(db: Session = Depends(get_db)):
+    """Retrieve all vlog posts"""
     return db.query(PostDB).order_by(PostDB.created_at.desc()).all()
 
 @app.post("/posts", status_code=201, response_model=PostResponse)
 def create_post(post: PostCreate, db: Session = Depends(get_db)):
+    """Create a new vlog post"""
     db_post = PostDB(
         id=str(uuid.uuid4()),
         title=post.title,
@@ -118,6 +121,7 @@ def create_post(post: PostCreate, db: Session = Depends(get_db)):
 
 @app.post("/posts/{post_id}/like", response_model=PostResponse)
 def like_post(post_id: str, db: Session = Depends(get_db)):
+    """Like a vlog post"""
     post = db.query(PostDB).filter(PostDB.id == post_id).first()
     if not post:
         raise HTTPException(status_code=404, detail="Post not found")
@@ -129,6 +133,7 @@ def like_post(post_id: str, db: Session = Depends(get_db)):
 # --- NEW: Comment Endpoint (US-5) ---
 @app.post("/posts/{post_id}/comments", response_model=CommentResponse)
 def create_comment(post_id: str, comment: CommentCreate, db: Session = Depends(get_db)):
+    """Create a comment for a specific post"""
     # Check if post exists
     post = db.query(PostDB).filter(PostDB.id == post_id).first()
     if not post:
@@ -148,6 +153,7 @@ def create_comment(post_id: str, comment: CommentCreate, db: Session = Depends(g
 
 @app.get("/posts/{post_id}", response_model=PostResponse)
 def get_post_detail(post_id: str, db: Session = Depends(get_db)):
+    """Retrieve a specific post by ID"""
     post = db.query(PostDB).filter(PostDB.id == post_id).first()
     if post is None:
         raise HTTPException(status_code=404, detail="Post not found")
@@ -155,6 +161,7 @@ def get_post_detail(post_id: str, db: Session = Depends(get_db)):
 
 @app.delete("/posts/{post_id}", status_code=204)
 def delete_post(post_id: str, db: Session = Depends(get_db)):
+    """Delete a vlog post and its comments"""
     post = db.query(PostDB).filter(PostDB.id == post_id).first()
     if not post:
         raise HTTPException(status_code=404, detail="Post not found")
@@ -165,6 +172,7 @@ def delete_post(post_id: str, db: Session = Depends(get_db)):
 
 @app.delete("/comments/{comment_id}", status_code=204)
 def delete_comment(comment_id: str, db: Session = Depends(get_db)):
+    """Delete a specific comment"""
     comment = db.query(CommentDB).filter(CommentDB.id == comment_id).first()
     if not comment:
         raise HTTPException(status_code=404, detail="Comment not found")
