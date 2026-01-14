@@ -40,7 +40,7 @@ class PostDB(Base):
     likes = Column(Integer, default=0)
     
     # Relationship to Comments
-    comments = relationship("CommentDB", back_populates="post")
+    comments = relationship("CommentDB", back_populates="post", cascade="all, delete-orphan")
 
 # Create Tables
 Base.metadata.create_all(bind=engine)
@@ -145,3 +145,30 @@ def create_comment(post_id: str, comment: CommentCreate, db: Session = Depends(g
     db.commit()
     db.refresh(db_comment)
     return db_comment
+
+@app.get("/posts/{post_id}", response_model=PostResponse)
+def get_post_detail(post_id: str, db: Session = Depends(get_db)):
+    post = db.query(PostDB).filter(PostDB.id == post_id).first()
+    if post is None:
+        raise HTTPException(status_code=404, detail="Post not found")
+    return post
+
+@app.delete("/posts/{post_id}", status_code=204)
+def delete_post(post_id: str, db: Session = Depends(get_db)):
+    post = db.query(PostDB).filter(PostDB.id == post_id).first()
+    if not post:
+        raise HTTPException(status_code=404, detail="Post not found")
+    
+    db.delete(post)
+    db.commit()
+    return None
+
+@app.delete("/comments/{comment_id}", status_code=204)
+def delete_comment(comment_id: str, db: Session = Depends(get_db)):
+    comment = db.query(CommentDB).filter(CommentDB.id == comment_id).first()
+    if not comment:
+        raise HTTPException(status_code=404, detail="Comment not found")
+    
+    db.delete(comment)
+    db.commit()
+    return None
