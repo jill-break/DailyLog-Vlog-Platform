@@ -111,13 +111,13 @@ def health_check():
     """Health check endpoint"""
     logger.info("Health check requested")
     return {"status": "healthy", "database": "connected"}
-
+# --- Get Posts Endpoint (US-2) ---
 @app.get("/posts", response_model=List[PostResponse])
 def get_posts(db: Session = Depends(get_db)):
     """Retrieve all vlog posts"""
     logger.info("Fetching all posts")
     return db.query(PostDB).order_by(PostDB.created_at.desc()).all()
-
+#--- Create Post Endpoint (US-1) ---
 @app.post("/posts", status_code=201, response_model=PostResponse)
 def create_post(post: PostCreate, db: Session = Depends(get_db)):
     """Create a new vlog post"""
@@ -133,20 +133,20 @@ def create_post(post: PostCreate, db: Session = Depends(get_db)):
     db.refresh(db_post)
     logger.info(f"Created new post with ID: {db_post.id}")
     return db_post
-
+# --- Like Post Endpoint (US-4) ---
 @app.post("/posts/{post_id}/like", response_model=PostResponse)
 def like_post(post_id: str, db: Session = Depends(get_db)):
     """Like a vlog post"""
     post = db.query(PostDB).filter(PostDB.id == post_id).first()
     if not post:
         raise HTTPException(status_code=404, detail="Post not found")
-    post.likes += 1
+    post.likes += 1 # type: ignore
     db.commit()
     db.refresh(post)
     logger.info(f"Post {post_id} liked. Total likes: {post.likes}")
     return post
 
-# --- NEW: Comment Endpoint (US-5) ---
+# --- Comment Endpoint (US-5) ---
 @app.post("/posts/{post_id}/comments", response_model=CommentResponse)
 def create_comment(post_id: str, comment: CommentCreate, db: Session = Depends(get_db)):
     """Create a comment for a specific post"""
@@ -167,7 +167,7 @@ def create_comment(post_id: str, comment: CommentCreate, db: Session = Depends(g
     db.refresh(db_comment)
     logger.info(f"Created comment {db_comment.id} for post {post_id}")
     return db_comment
-
+# --- US-3 Get Post Detail Endpoint ---
 @app.get("/posts/{post_id}", response_model=PostResponse)
 def get_post_detail(post_id: str, db: Session = Depends(get_db)):
     """Retrieve a specific post by ID"""
@@ -177,7 +177,7 @@ def get_post_detail(post_id: str, db: Session = Depends(get_db)):
     
     logger.info(f"Fetching post with ID: {post_id}")
     return post
-
+# --- Delete Post Endpoint (US-6) ---
 @app.delete("/posts/{post_id}", status_code=204)
 def delete_post(post_id: str, db: Session = Depends(get_db)):
     """Delete a vlog post and its comments"""
@@ -190,7 +190,7 @@ def delete_post(post_id: str, db: Session = Depends(get_db)):
 
     logger.info(f"Deleted post with ID: {post_id} and its comments")    
     return None
-
+# --- Delete Comment Endpoint ---
 @app.delete("/comments/{comment_id}", status_code=204)
 def delete_comment(comment_id: str, db: Session = Depends(get_db)):
     """Delete a specific comment"""

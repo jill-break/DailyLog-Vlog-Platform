@@ -61,7 +61,7 @@ export default function Home() {
   // Handle Like
   const handleLike = async (postId: string) => {
     await fetch(`http://127.0.0.1:8000/posts/${postId}/like`, { method: 'POST' });
-    fetchPosts(); // Refresh to see new count
+    fetchPosts(); 
   };
 
   // Handle Submit Comment (US-5)
@@ -135,7 +135,7 @@ export default function Home() {
             src="/logo.png"
             alt="DailyLog Logo"
             className="h-50 w-auto"  
-            // {/* <-- Changed from h-12 to h-20 */}
+            
           />
           
         </div>

@@ -13,5 +13,3 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the rest of the application
 COPY . .
-
-# (The command to run the app is handled by docker-compose)
